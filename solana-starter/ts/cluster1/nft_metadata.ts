@@ -21,9 +21,9 @@ umi.use(signerIdentity(signer));
     // Follow this JSON structure
     // https://docs.metaplex.com/programs/token-metadata/changelog/v1.0#json-structure
     const metadata = {
-      name: "Unique Rug",
-      symbol: "UR",
-      description: "Only unique rugs",
+      name: "Vault Rug",
+      symbol: "VR",
+      description: "Only  Vault rugs",
       image: "https://arweave.net/_SEwDPNYt1uB9GP7dyA6qP6_fG09YB-b38qwGYyJlfk",
       attributes: [{ trait_type: "Red", value: "Rug" }],
       properties: {

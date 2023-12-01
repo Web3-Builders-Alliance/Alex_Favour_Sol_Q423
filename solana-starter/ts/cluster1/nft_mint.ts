@@ -28,10 +28,10 @@ const mint = generateSigner(umi);
   let tx = createNft(umi, {
     mint,
     authority: umi.identity,
-    name: "Unique Rug",
-    symbol: "UR",
+    name: "Vault Rug",
+    symbol: "VR",
     sellerFeeBasisPoints: percentAmount(10),
-    uri: "https://arweave.net/ok5wANaGNotNG5CeNaCOT2ZNQ0qIHrqiJhTtDF4WMwQ",
+    uri: "https://arweave.net/AV9tN4nQtNvyTT6YdiUP9Qi6pZDPvXhwrfmc54d-2do",
   });
   let result = await tx.sendAndConfirm(umi);
   const signature = base58.encode(result.signature);

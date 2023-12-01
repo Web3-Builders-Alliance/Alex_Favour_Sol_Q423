@@ -4,6 +4,7 @@ import {
   SystemProgram,
   PublicKey,
   Commitment,
+  LAMPORTS_PER_SOL,
 } from "@solana/web3.js";
 import {
   Program,
@@ -13,7 +14,7 @@ import {
   BN,
 } from "@coral-xyz/anchor";
 import { WbaVault, IDL } from "./programs/wba_vault";
-import wallet from "./wallet/wba-wallet.json";
+import wallet from "../wba-wallet.json";
 
 // Import our keypair from the wallet file
 const keypair = Keypair.fromSecretKey(new Uint8Array(wallet));
@@ -30,30 +31,46 @@ const provider = new AnchorProvider(connection, new Wallet(keypair), {
 });
 
 // Create our program
-const program = new Program<WbaVault>(IDL, "<address>" as Address, provider);
+const program = new Program<WbaVault>(
+  IDL,
+  "D51uEDHLbWAxNfodfQDv7qkp8WZtxrhi3uganGbNos7o" as Address,
+  provider
+);
 
 // Create a random keypair
-const vaultState = new PublicKey("<address>");
+const vaultState = new PublicKey(
+  "FFA4qo2MJEmi8T3pfnVTvZNAcd7enten9EDmSNChuqkE"
+);
 // Create the PDA for our enrollment account
 // Seeds are "auth", vaultState
-// const vaultAuth = ???
+const vaultAuth = PublicKey.findProgramAddressSync(
+  [Buffer.from("auth"), vaultState.toBuffer()],
+  program.programId
+)[0];
 
 // Create the vault key
-// Seeds are "vault", vaultAuth
-// const vault = ???
+const vault = PublicKey.findProgramAddressSync(
+  [Buffer.from("vault"), vaultAuth.toBuffer()],
+  program.programId
+)[0];
 
 // Execute our enrollment transaction
 (async () => {
   try {
-    // const signature = await program.methods
-    // .withdraw(new BN(<number>))
-    // .accounts({
-    //     ???
-    // })
-    // .signers([
-    //     keypair
-    // ]).rpc();
-    // console.log(`Withdraw success! Check out your TX here:\n\nhttps://explorer.solana.com/tx/${signature}?cluster=devnet`);
+    const signature = await program.methods
+      .withdraw(new BN(0.1 * LAMPORTS_PER_SOL))
+      .accounts({
+        owner: keypair.publicKey,
+        vault,
+        vaultAuth,
+        vaultState,
+        systemProgram: SystemProgram.programId,
+      })
+      .signers([keypair])
+      .rpc();
+    console.log(
+      `Withdraw success! Check out your TX here:\n\nhttps://explorer.solana.com/tx/${signature}?cluster=devnet`
+    );
   } catch (e) {
     console.error(`Oops, something went wrong: ${e}`);
   }
