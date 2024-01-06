@@ -7,3 +7,4 @@ node_modules
 test-ledger
 .yarn
 wallet.json
+*anchor_vote_program_sol_a-keypair

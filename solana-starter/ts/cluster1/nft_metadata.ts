@@ -21,16 +21,16 @@ umi.use(signerIdentity(signer));
     // Follow this JSON structure
     // https://docs.metaplex.com/programs/token-metadata/changelog/v1.0#json-structure
     const metadata = {
-      name: "Vault Rug",
-      symbol: "VR",
-      description: "Only  Vault rugs",
-      image: "https://arweave.net/_SEwDPNYt1uB9GP7dyA6qP6_fG09YB-b38qwGYyJlfk",
-      attributes: [{ trait_type: "Red", value: "Rug" }],
+      name: "TokenTest",
+      symbol: "TT",
+      description: "TokenTests",
+      image: "https://arweave.net/JxeaueAoXKn0lUQYPiM9xKa-aHewHEw6x9ot5vphz7c",
+      attributes: null,
       properties: {
         files: [
           {
             type: "image/png",
-            uri: "https://arweave.net/_SEwDPNYt1uB9GP7dyA6qP6_fG09YB-b38qwGYyJlfk",
+            uri: "https://arweave.net/JxeaueAoXKn0lUQYPiM9xKa-aHewHEw6x9ot5vphz7c",
           },
         ],
       },

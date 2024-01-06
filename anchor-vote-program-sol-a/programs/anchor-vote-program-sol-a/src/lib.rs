@@ -1,12 +1,12 @@
 use anchor_lang::prelude::*;
 use anchor_lang::solana_program::hash::hash;
-declare_id!("X17mKJAEtGtQ1oNyLgFH4VL5PwzzbE7LimWha4RbAJD");
+declare_id!("vod1XRnwFrQGfzhQjR15iEUz4WFxiyXBkTUk7jvxUHJ");
 
 #[program]
 pub mod anchor_vote_program_sol_a {
     use super::*;
 
-        pub fn initialize (ctx: Context<Initialize>,_url:String) -> Result<()> {
+        pub fn initialize (ctx:Context<Initialize>,_url:String) -> Result<()> {
             ctx.accounts.vote.bump = ctx.bumps.vote;
             ctx.accounts.vote.score = 0;
             Ok(())
@@ -22,15 +22,15 @@ pub mod anchor_vote_program_sol_a {
         }
 }
 
-#[derive(Accounts)<'info>]
+#[derive(Accounts)]
 #[instruction(_url:String)]
 pub struct Initialize<'info> {
-    #[accounts(mut)]
+    #[account(mut)]
     signer: Signer<'info>,
     #[account(init,
         payer = signer,
         space = VoteState::INIT_SPACE,
-        seeds = [hash(_url.as_bytes()).to_bytes()], 
+        seeds = [hash(_url.as_bytes()).to_bytes().as_ref()], 
         bump    
     )]
     vote: Account<'info, VoteState>,
@@ -38,20 +38,19 @@ pub struct Initialize<'info> {
 }
 
 
-#[derive(Accounts)<'info>]
+#[derive(Accounts)]
 #[instruction(_url:String)]
 pub struct Vote<'info> {
-    #[accounts(mut)]
+    #[account(mut)]
     signer: Signer<'info>,
     #[account(mut,
-        seeds = [hash(_url.as_bytes()).to_bytes()], 
+        seeds = [hash(_url.as_bytes()).to_bytes().as_ref()], 
         bump  = vote.bump 
     )]
     vote: Account<'info, VoteState>,
     system_program: Program<'info, System>,
 }
 #[account]
-
 pub struct VoteState{
     score: i64,
     bump: u8,

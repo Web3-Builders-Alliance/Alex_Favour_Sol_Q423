@@ -5,13 +5,13 @@ seeds = false
 skip-lint = false
 
 [programs.localnet]
-anchor_vote_program_sol_a = "X17mKJAEtGtQ1oNyLgFH4VL5PwzzbE7LimWha4RbAJD"
+anchor_vote_program_sol_a = "vod1XRnwFrQGfzhQjR15iEUz4WFxiyXBkTUk7jvxUHJ"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "localnet"
 wallet = "/Users/macbookpro/.config/solana/id.json"
 
 [scripts]
